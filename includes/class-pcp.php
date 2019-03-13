@@ -56,7 +56,6 @@ class PCP {
 	 */
 	private static $plugin_path = null;
 
-
 	/**
 	 * Define the core functionality of the plugin.
 	 *
@@ -241,5 +240,18 @@ class PCP {
 			self::$plugin_path = plugin_dir_path( dirname( __FILE__ ) );
 		}
 		return self::$plugin_path;
+	}
+
+	/**
+	 * Returns settings of the plugin
+	 *
+	 * @return void
+	 */
+	public static function settings(){
+		static $settings = null;
+		if( $settings === null ){
+			$settings = get_option('pcp_options');
+		}
+		return $settings;
 	}
 }
