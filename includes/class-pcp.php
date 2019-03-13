@@ -143,7 +143,7 @@ class PCP {
 		 * of the plugin.
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-pcp-i18n.php';
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-pcp-template-render.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-pcp-template-renderer.php';
 	}
 
 	public function load_admin_dependencies() {
