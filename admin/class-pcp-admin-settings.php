@@ -37,20 +37,8 @@ class PCP_Admin_Settings {
 	}
 
 	public function admin_page() {
-		$this->pcp_options = get_option( 'pcp_options' ); ?>
-
-		<div class="wrap">
-			<h2>Primary Cat for Posts Settings</h2>
-
-			<form method="post" action="options.php">
-				<?php
-					settings_fields( 'pcp_options_group' );
-					do_settings_sections( 'primary-cat-for-posts' );
-					submit_button();
-				?>
-			</form>
-		</div>
-		<?php
+		$this->pcp_options = PCP::settings(); 
+		PCP_Template_Renderer::render('admin/settings-page.php');		
 	}
 
 	public function init() {
@@ -95,10 +83,10 @@ class PCP_Admin_Settings {
 			'names',
 			'and'
 		);
-		
-		PCP_Template_Render::render('admin/enabled-post-types-setting.php', [
+
+		PCP_Template_Renderer::render('admin/enabled-post-types-setting.php', [
 			'post_types' => $post_types, 
-			'enabled_post_types' => $this->pcp_options['enabled_post_types']
+			'enabled_post_types' => isset($this->pcp_options['enabled_post_types']) ? $this->pcp_options['enabled_post_types'] : []
 			]
 		);
 	}
