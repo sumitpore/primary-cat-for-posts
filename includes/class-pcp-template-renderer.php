@@ -1,6 +1,6 @@
 <?php
 
-class PCP_Template_Render {
+class PCP_Template_Renderer {
 	/**
 	 * Render Templates
 	 *
@@ -15,7 +15,7 @@ class PCP_Template_Render {
 		if ( $args && is_array( $args ) ) {
 			extract( $args );
 		}
-		
+
 		$located = self::locate_template( $template_name, $template_path, $default_path );
 		if ( false != $located ) {
 			do_action( 'pcp_before_template_render', $template_name, $template_path, $located, $args );
