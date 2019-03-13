@@ -67,7 +67,6 @@ class PCP {
 	 * @since    1.0.0
 	 */
 	public function __construct() {
-
 		if ( defined( 'PRIMARY_CAT_FOR_POSTS_VERSION' ) ) {
 			$this->version = PRIMARY_CAT_FOR_POSTS_VERSION;
 		} else {
@@ -77,7 +76,6 @@ class PCP {
 
 		$this->load_dependencies();
 		$this->set_locale();
-
 	}
 
 	/**
@@ -89,15 +87,14 @@ class PCP {
 	 * - PCP_Admin. Defines modules related to Admin functionality
 	 * - PCP_Public. Defines modules related to Frontend functionality
 	 *
-	 *
 	 * @since    1.0.0
 	 * @access   private
 	 */
 	private function load_dependencies() {
-		spl_autoload_register(array($this, 'autoloader'));
+		spl_autoload_register( array( $this, 'autoloader' ) );
 		$this->load_common_dependencies();
-		add_action( 'init', array($this, 'load_admin_dependencies') );
-		add_action( 'init', array( $this, 'load_public_dependencies') );
+		add_action( 'init', array( $this, 'load_admin_dependencies' ) );
+		add_action( 'init', array( $this, 'load_public_dependencies' ) );
 	}
 
 	/**
@@ -105,8 +102,7 @@ class PCP {
 	 *
 	 * @return void
 	 */
-	public function autoloader( $class_name ){
-
+	public function autoloader( $class_name ) {
 		if ( false === strpos( $class_name, 'PCP' ) ) {
 			return;
 		}
@@ -118,8 +114,8 @@ class PCP {
 		}
 
 		$classes_dir = realpath( plugin_dir_path( dirname( __FILE__ ) ) ) . DIRECTORY_SEPARATOR . $sub_dir . DIRECTORY_SEPARATOR;
-		
-		$class_file = 'class-' . str_replace( '_', '-', strtolower($class_name) ) . '.php';
+
+		$class_file = 'class-' . str_replace( '_', '-', strtolower( $class_name ) ) . '.php';
 
 		require_once $classes_dir . $class_file;
 	}
@@ -128,7 +124,7 @@ class PCP {
 	 *
 	 * @return boolean
 	 */
-	private function is_admin_request(){
+	private function is_admin_request() {
 		return is_admin();
 	}
 
@@ -137,21 +133,21 @@ class PCP {
 	 *
 	 * @return boolean
 	 */
-	private function is_public_request(){
+	private function is_public_request() {
 		return ( ! is_admin() || defined( 'DOING_AJAX' ) ) && ! defined( 'DOING_CRON' ) && ! defined( 'REST_REQUEST' );
 	}
 
-	public function load_common_dependencies(){
+	public function load_common_dependencies() {
 		/**
 		 * The class responsible for defining internationalization functionality
 		 * of the plugin.
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-pcp-i18n.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-pcp-template-render.php';
 	}
 
-	public function load_admin_dependencies(){
-
-		if( ! $this->is_admin_request() ){
+	public function load_admin_dependencies() {
+		if ( ! $this->is_admin_request() ) {
 			return;
 		}
 
@@ -163,9 +159,8 @@ class PCP {
 		$this->load_admin_module();
 	}
 
-	public function load_public_dependencies(){
-
-		if( ! $this->is_public_request() ) {
+	public function load_public_dependencies() {
+		if ( ! $this->is_public_request() ) {
 			return;
 		}
 
@@ -188,11 +183,9 @@ class PCP {
 	 * @access   private
 	 */
 	private function set_locale() {
-
 		$plugin_i18n = new PCP_i18n();
 
-		add_action( 'plugins_loaded', array($plugin_i18n, 'load_plugin_textdomain') );
-
+		add_action( 'plugins_loaded', array( $plugin_i18n, 'load_plugin_textdomain' ) );
 	}
 
 	/**
@@ -203,9 +196,7 @@ class PCP {
 	 * @access   private
 	 */
 	private function load_admin_module() {
-
-		$this->admin = new PCP_Admin( $this->get_plugin_name(), $this->get_version());
-
+		$this->admin = new PCP_Admin( $this->get_plugin_name(), $this->get_version() );
 	}
 
 	/**
@@ -216,9 +207,7 @@ class PCP {
 	 * @access   private
 	 */
 	private function load_public_module() {
-
-		$plugin_public = new PCP_Public( $this->get_plugin_name(), $this->get_version());
-
+		$plugin_public = new PCP_Public( $this->get_plugin_name(), $this->get_version() );
 	}
 
 	/**
@@ -248,11 +237,9 @@ class PCP {
 	 * @return void
 	 */
 	public static function get_plugin_path() {
-
-		if( self::$plugin_path === null ){
+		if ( self::$plugin_path === null ) {
 			self::$plugin_path = plugin_dir_path( dirname( __FILE__ ) );
 		}
 		return self::$plugin_path;
-
 	}
 }
