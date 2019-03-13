@@ -35,7 +35,7 @@ if ( ! defined( 'WPINC' ) ) {
  * Rename this for your plugin and update it as you release new versions.
  */
 define( 'PRIMARY_CAT_FOR_POSTS_VERSION', '1.0.0' );
-
+define( 'PRIMARY_CAT_FOR_POSTS_TEXTDOMAIN', 'primary-cat-for-posts' );
 /**
  * The code that runs during plugin activation.
  * This action is documented in includes/class-pcp-activator.php
@@ -73,8 +73,6 @@ require plugin_dir_path( __FILE__ ) . 'includes/class-pcp.php';
  * @since    1.0.0
  */
 function run_pcp() {
-
 	$plugin = new PCP();
-
 }
 run_pcp();
