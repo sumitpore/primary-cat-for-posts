@@ -22,8 +22,8 @@ class PCP_Admin_Settings {
 	private $pcp_options;
 
 	public function __construct() {
-		add_action( 'admin_menu', array( $this, 'add_plugin_page') );
-		add_action( 'admin_init', array( $this, 'init') );
+		add_action( 'admin_menu', array( $this, 'add_plugin_page' ) );
+		add_action( 'admin_init', array( $this, 'init' ) );
 	}
 
 	public function add_plugin_page() {
@@ -40,19 +40,18 @@ class PCP_Admin_Settings {
 		$this->pcp_options = get_option( 'pcp_options' ); ?>
 
 		<div class="wrap">
-			<h2>Primary Cat for Posts</h2>
-			<p>Some sub text here</p>
-			<?php settings_errors(); ?>
+			<h2>Primary Cat for Posts Settings</h2>
 
 			<form method="post" action="options.php">
 				<?php
 					settings_fields( 'pcp_options_group' );
-					do_settings_sections( 'primary-cat-for-posts-admin' );
+					do_settings_sections( 'primary-cat-for-posts' );
 					submit_button();
 				?>
 			</form>
 		</div>
-	<?php }
+		<?php
+	}
 
 	public function init() {
 		register_setting(
@@ -63,38 +62,45 @@ class PCP_Admin_Settings {
 
 		add_settings_section(
 			'primary_cat_for_posts_setting_section', // id
-			'Settings', // title
-			array( $this, 'section_info' ), // callback
-			'primary-cat-for-posts-admin' // page
+			'General', // title
+			'__return_false', // callback
+			'primary-cat-for-posts' // page
 		);
 
 		add_settings_field(
-			'enable_for_post_types', // id
+			'enabled_post_types', // id
 			'Enable for Post Types', // title
 			array( $this, 'render_enable_for_post_types_setting' ), // callback
-			'primary-cat-for-posts-admin', // page
+			'primary-cat-for-posts', // page
 			'primary_cat_for_posts_setting_section' // section
 		);
 	}
 
-	public function sanitize_input($input) {
+	public function sanitize_input( $input ) {
 		$sanitary_values = array();
-		if ( isset( $input['enable_for_post_types'] ) ) {
-			$sanitary_values['enable_for_post_types'] = $input['enable_for_post_types'];
+		if ( isset( $input['enabled_post_types'] ) ) {
+			$sanitary_values['enabled_post_types'] = $input['enabled_post_types'];
 		}
 
 		return $sanitary_values;
 	}
 
-	public function section_info() {
-		echo 'SECTION INFO';
-	}
-
 	public function render_enable_for_post_types_setting() {
-		?> <select name="pcp_options[enable_for_post_types]" id="enable_for_post_types">
-			<?php $selected = (isset( $this->pcp_options['enable_for_post_types'] ) && $this->pcp_options['enable_for_post_types'] === 'option-one') ? 'selected' : '' ; ?>
-			<option value="option-one" <?php echo $selected; ?>>Option One</option>
-		</select> <?php
+		$post_types = get_post_types(
+			[
+				'public' => true,
+				'show_ui' => true,
+				'publicly_queryable' => true,
+			],
+			'names',
+			'and'
+		);
+		
+		PCP_Template_Render::render('admin/enabled-post-types-setting.php', [
+			'post_types' => $post_types, 
+			'enabled_post_types' => $this->pcp_options['enabled_post_types']
+			]
+		);
 	}
 
 }
