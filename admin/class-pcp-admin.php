@@ -48,9 +48,57 @@ class PCP_Admin {
 	 * @param      string $version    The version of this plugin.
 	 */
 	public function __construct( $plugin_name, $version ) {
+
 		$this->plugin_name = $plugin_name;
 		$this->version = $version;
+
+		$this->convert_tax_selection_to_radio_btns();
 		$this->admin_settings = new PCP_Admin_Settings();
+
+		// launch each taxonomy class when tax is registered
+		// add_action( 'registered_taxonomy', array( $this, 'convert_tax_selection_to_radio_btns' ), 10, 1 );
 	}
 
+	public function convert_tax_selection_to_radio_btns(){
+
+		$plugin_settings = PCP::settings();
+		if( ! isset( $plugin_settings['enabled_taxonomies'] ) ) {
+			return;
+		}
+
+		$taxonomies = array_keys( self::get_all_taxonomies() );
+		if(! $taxonomies) {
+			return;
+		}
+
+		foreach( $taxonomies as $taxonomy_name ){
+			if ( ! in_array( $taxonomy_name, (array) $plugin_settings['enabled_taxonomies'] ) ) {
+				return;
+			}
+			new PCP_Admin_WP_Radio_Taxonomy( $taxonomy_name );
+		} 
+
+	}
+
+	/**
+	 * Get all taxonomies - for plugin options checklist
+	 * @access public
+	 * @return array
+	 * @since  1.0
+	 */
+	public static function get_all_taxonomies() {
+
+		$args = array (
+			'public'   => true,
+			'show_ui'  => true,
+			'_builtin' => true
+		);
+
+		$defaults = get_taxonomies( $args, 'objects' );
+		$args['_builtin'] = false;
+		$custom = get_taxonomies( $args, 'objects' );
+		$taxonomies = array_merge( $defaults, $custom );
+		ksort( $taxonomies );
+		return $taxonomies;
+	}
 }
