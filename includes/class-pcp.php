@@ -33,28 +33,37 @@ final class PCP {
 	 * The unique identifier of this plugin.
 	 *
 	 * @since    1.0.0
-	 * @access   protected
+	 * @access   private
 	 * @var      string    $plugin_name    The string used to uniquely identify this plugin.
 	 */
-	protected $plugin_name;
+	private $plugin_name;
 
 	/**
 	 * The current version of the plugin.
 	 *
 	 * @since    1.0.0
-	 * @access   protected
+	 * @access   private
 	 * @var      string    $version    The current version of the plugin.
 	 */
-	protected $version;
-
+	private $version;
+	
 	/**
-	 * The single instance of the class.
+	 * Holds the instance of main admin class
 	 *
-	 * @var PCP
+	 * @var PCP_Admin
 	 * @since 1.0.0
 	 */
-	protected static $_instance = null;
-	
+	private $admin;
+
+
+	/**
+	 * Holds the instance of main public class
+	 *
+	 * @var PCP_Public
+	 * @since 1.0.0
+	 */
+	private $public;
+
 	/**
 	 * Main plugin path /wp-content/plugins/<plugin-folder>/.
 	 *
@@ -63,6 +72,14 @@ final class PCP {
 	 * @var      string    $plugin_path    Main path.
 	 */
 	private static $plugin_path = null;
+
+	/**
+	 * The single instance of the class.
+	 *
+	 * @var PCP
+	 * @since 1.0.0
+	 */
+	protected static $_instance = null;
 
 	/**
 	 * Main PCP Instance.
@@ -137,6 +154,8 @@ final class PCP {
 	/**
 	 * Loads classes present in admin and public directories
 	 *
+	 * @since    1.0.0
+	 * @access   public
 	 * @return void
 	 */
 	public function autoloader( $class_name ) {
@@ -156,9 +175,12 @@ final class PCP {
 
 		require_once $classes_dir . $class_file;
 	}
+
 	/**
 	 * Returns true if a current page request belongs to WordPress dashboard
 	 *
+	 * @since    1.0.0
+	 * @access   private
 	 * @return boolean
 	 */
 	private function is_admin_request() {
@@ -168,12 +190,21 @@ final class PCP {
 	/**
 	 * Returns true if a current page request belongs to frontend
 	 *
+	 * @since    1.0.0
+	 * @access   private
 	 * @return boolean
 	 */
 	private function is_public_request() {
 		return ( ! is_admin() || defined( 'DOING_AJAX' ) ) && ! defined( 'DOING_CRON' ) && ! defined( 'REST_REQUEST' );
 	}
 
+	/**
+	 * Loads modules which are always required
+	 *
+	 * @since    1.0.0
+	 * @access   public
+	 * @return void
+	 */
 	public function load_common_dependencies() {
 		/**
 		 * The class responsible for defining internationalization functionality
@@ -183,6 +214,13 @@ final class PCP {
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-pcp-template-renderer.php';
 	}
 
+	/**
+	 * Loads main admin side class file
+	 *
+	 * @since    1.0.0
+	 * @access   public
+	 * @return void
+	 */
 	public function load_admin_dependencies() {
 		if ( ! $this->is_admin_request() ) {
 			return;
@@ -196,6 +234,13 @@ final class PCP {
 		$this->load_admin_module();
 	}
 
+	/**
+	 * Loads main public side class file
+	 *
+	 * @since    1.0.0
+	 * @access   public
+	 * @return void
+	 */
 	public function load_public_dependencies() {
 		if ( ! $this->is_public_request() ) {
 			return;
@@ -218,6 +263,7 @@ final class PCP {
 	 *
 	 * @since    1.0.0
 	 * @access   private
+	 * @return   void
 	 */
 	private function set_locale() {
 		$plugin_i18n = new PCP_i18n();
@@ -226,8 +272,7 @@ final class PCP {
 	}
 
 	/**
-	 * Register all of the hooks related to the admin area functionality
-	 * of the plugin.
+	 * Load main admin module
 	 *
 	 * @since    1.0.0
 	 * @access   private
@@ -237,8 +282,7 @@ final class PCP {
 	}
 
 	/**
-	 * Register all of the hooks related to the public-facing functionality
-	 * of the plugin.
+	 * Load main public module
 	 *
 	 * @since    1.0.0
 	 * @access   private
