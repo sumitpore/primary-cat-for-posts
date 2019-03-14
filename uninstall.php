@@ -29,3 +29,7 @@
 if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
 	exit;
 }
+
+# Remove any left over post meta data
+global $wpdb;
+$wpdb->delete( $wpdb->postmeta, array( 'meta_key' => 'unselected_required_taxonomies' ), array( '%s' ) );
