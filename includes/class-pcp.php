@@ -39,15 +39,6 @@ final class PCP {
 	private $plugin_name;
 
 	/**
-	 * The current version of the plugin.
-	 *
-	 * @since    1.0.0
-	 * @access   private
-	 * @var      string    $version    The current version of the plugin.
-	 */
-	private $version;
-
-	/**
 	 * Holds the instance of main admin class
 	 *
 	 * @var PCP_Admin
