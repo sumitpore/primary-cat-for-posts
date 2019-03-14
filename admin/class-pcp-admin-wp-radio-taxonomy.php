@@ -16,13 +16,13 @@ if ( ! class_exists( 'PCP_Admin_WP_Radio_Taxonomy' ) ) :
 
 		/**
 		 * @var object - the taxonomy object
-		 * @since 1.6.0
+		 * @since 1.0.0
 		 */
 		public $tax_obj = null;
 
 		/**
 		 * @var boolean - whether to filter get_terms() or not
-		 * @since 1.7.0
+		 * @since 1.0.0
 		 */
 		private $set = true;
 
@@ -186,7 +186,7 @@ if ( ! class_exists( 'PCP_Admin_WP_Radio_Taxonomy' ) ) :
 		 * @access public
 		 * @param  array $args
 		 * @return array
-		 * @since 1.1.0
+		 * @since 1.0.0
 		 */
 		public function filter_terms_checklist_args( $args ) {
 
@@ -212,7 +212,7 @@ if ( ! class_exists( 'PCP_Admin_WP_Radio_Taxonomy' ) ) :
 		 * @access public
 		 * @param  bool $_set
 		 * @return bool
-		 * @since 1.7.0
+		 * @since 1.0.0
 		 */
 		private function set_terms_filter( $_set = true ) {
 			$this->set = (bool) $_set;
@@ -224,11 +224,11 @@ if ( ! class_exists( 'PCP_Admin_WP_Radio_Taxonomy' ) ) :
 		 * @access public
 		 * @param  bool $_set
 		 * @return bool
-		 * @since 1.7.0
+		 * @since 1.0.0
 		 */
 		private function get_terms_filter() {
 			// give users a chance to disable the no term feature
-			return apply_filters( 'radio_buttons_for_taxonomies_no_term_' . $this->taxonomy, $this->set );
+			return apply_filters( 'pcp_no_term_' . $this->taxonomy, $this->set );
 		}
 
 
@@ -240,7 +240,7 @@ if ( ! class_exists( 'PCP_Admin_WP_Radio_Taxonomy' ) ) :
 		 * @param  array $taxonomies
 		 * @param  array $args
 		 * @return array
-		 * @since 1.4
+		 * @since 1.0.0
 		 */
 		function get_terms( $terms, $taxonomies, $args ) {
 
@@ -251,7 +251,7 @@ if ( ! class_exists( 'PCP_Admin_WP_Radio_Taxonomy' ) ) :
 				// remove filter after 1st run
 				remove_filter( current_filter(), __FUNCTION__, 10, 3 );
 
-				$no_term = sprintf( __( apply_filters( 'radio_buttons_for_taxonomies_no_term_selected_text', 'No %s' ), PRIMARY_CAT_FOR_POSTS_TEXTDOMAIN ), $this->tax_obj->labels->singular_name ); // @codingStandardsIgnoreLine.
+				$no_term = sprintf( __( apply_filters( 'pcp_no_term_selected_text', 'No %s' ), PRIMARY_CAT_FOR_POSTS_TEXTDOMAIN ), $this->tax_obj->labels->singular_name ); // @codingStandardsIgnoreLine.
 
 				$uncategorized = (object) array(
 					'term_id' => '0',
@@ -271,7 +271,7 @@ if ( ! class_exists( 'PCP_Admin_WP_Radio_Taxonomy' ) ) :
 		 *
 		 * @param  int $post_id
 		 * @return int
-		 * @since 1.1.0
+		 * @since 1.0.0
 		 */
 		function save_single_term( $post_id ) {
 			// verify if this is an auto save routine. If it is our form has not been submitted, so we dont want to do anything
@@ -325,6 +325,7 @@ if ( ! class_exists( 'PCP_Admin_WP_Radio_Taxonomy' ) ) :
 		 * 
 		 * @param int $post_id
 		 * @return void
+		 * @since 1.0.0
 		 */
 		private function update_list_of_unselected_required_taxonomies( $post_id ) {
 
@@ -347,7 +348,7 @@ if ( ! class_exists( 'PCP_Admin_WP_Radio_Taxonomy' ) ) :
 		 *
 		 * @param  array $columns
 		 * @return array
-		 * @since 1.7.0
+		 * @since 1.0.0
 		 */
 		public function make_hierarchical() {
 			global $wp_taxonomies;

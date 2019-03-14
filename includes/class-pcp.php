@@ -305,6 +305,7 @@ final class PCP {
 	/**
 	 * Returns path of the Plugin's directory
 	 *
+	 * @since     1.0.0
 	 * @return void
 	 */
 	public static function get_plugin_path() {
@@ -317,6 +318,7 @@ final class PCP {
 	/**
 	 * Returns settings of the plugin
 	 *
+	 * @since     1.0.0
 	 * @return void
 	 */
 	public static function settings() {

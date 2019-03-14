@@ -21,7 +21,7 @@ class PCP_Admin_Settings {
 	 *
 	 * @access public
 	 * @return void
-	 * @since  1.0
+	 * @since  1.0.0
 	 */
 	public function add_plugin_page() {
 		add_options_page(
@@ -38,7 +38,7 @@ class PCP_Admin_Settings {
 	 *
 	 * @access public
 	 * @return void
-	 * @since  1.0
+	 * @since  1.0.0
 	 */
 	public function admin_page() {
 		$this->pcp_options = PCP::settings();
@@ -82,7 +82,7 @@ class PCP_Admin_Settings {
 	 *
 	 * @access public
 	 * @return array
-	 * @since  1.0
+	 * @since  1.0.0
 	 */
 	public function render_enable_taxonomies_setting() {
 		PCP_Template_Renderer::render(

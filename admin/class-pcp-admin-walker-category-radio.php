@@ -21,7 +21,7 @@ class PCP_Admin_Walker_Category_Radio extends Walker {
 	 *
 	 * @see Walker:start_lvl()
 	 *
-	 * @since 2.5.1
+	 * @since 1.0.0
 	 *
 	 * @param string $output Passed by reference. Used to append additional content.
 	 * @param int    $depth  Depth of category. Used for tab indentation.
@@ -37,7 +37,7 @@ class PCP_Admin_Walker_Category_Radio extends Walker {
 	 *
 	 * @see Walker::end_lvl()
 	 *
-	 * @since 2.5.1
+	 * @since 1.0.0
 	 *
 	 * @param string $output Passed by reference. Used to append additional content.
 	 * @param int    $depth  Depth of category. Used for tab indentation.
@@ -53,7 +53,7 @@ class PCP_Admin_Walker_Category_Radio extends Walker {
 	 *
 	 * @see Walker::start_el()
 	 *
-	 * @since 2.5.1
+	 * @since 1.0.0
 	 *
 	 * @param string $output   Passed by reference. Used to append additional content.
 	 * @param object $category The current term object.
@@ -113,7 +113,7 @@ class PCP_Admin_Walker_Category_Radio extends Walker {
 	 *
 	 * @see Walker::end_el()
 	 *
-	 * @since 2.5.1
+	 * @since 1.0.0
 	 *
 	 * @param string $output   Passed by reference. Used to append additional content.
 	 * @param object $category The current term object.

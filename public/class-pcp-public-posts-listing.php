@@ -27,6 +27,7 @@ class PCP_Public_Posts_Listing {
 	 * @param string|id $term
 	 * @param integer   $page_number
 	 * @return void
+	 * @since     1.0.0
 	 */
 	public static function get_posts( $post_type, $taxonomy, $term, $page_number = 1 ) {
 		$args = array(
@@ -52,6 +53,7 @@ class PCP_Public_Posts_Listing {
 	 *
 	 * @param array $atts
 	 * @return void
+	 * @since     1.0.0
 	 */
 	public function list_posts( $atts ) {
 		$post_type = isset( $atts['post_type'] ) ? $atts['post_type'] : '';

@@ -98,6 +98,7 @@ class PCP_Admin_Edit_Post {
 	 * Reverts post status to draft if all required cats are not selected
 	 *
 	 * @param int $post_id The ID of the post being saved.
+	 * @since  1.0.0
 	 */
 	public function revert_to_draft_if_required_cats_are_not_selected( $post_id ) {
 		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {

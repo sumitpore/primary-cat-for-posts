@@ -1,5 +1,14 @@
 <?php
-
+/**
+ * Renders the templates
+ *
+ * Allows to render templates created inside `templates` directory
+ *
+ * @since      1.0.0
+ * @package    PCP
+ * @subpackage PCP/includes
+ * @author     Sumit P <sumit.pore@gmail.com>
+ */
 class PCP_Template_Renderer {
 	/**
 	 * Render Templates
