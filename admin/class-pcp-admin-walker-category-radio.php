@@ -98,7 +98,7 @@ class PCP_Admin_Walker_Category_Radio extends Walker {
 		} else {
 			/** This filter is documented in wp-includes/category-template.php */
 			$output .= "\n<li id='{$taxonomy}-{$category->term_id}'$class>" .
-				'<label class="selectit"><input value="' . intval( $category->term_id ) . '" type="radio" name="'.esc_attr( $name ).'[]" id="in-'.esc_attr( $taxonomy ).'-' . intval( $category->term_id ) . '"' .
+				'<label class="selectit"><input value="' . intval( $category->term_id ) . '" type="radio" name="'.esc_attr( $name ).'" id="in-'.esc_attr( $taxonomy ).'-' . intval( $category->term_id ) . '"' .
 				checked( $category->term_id, $selected_id, false ) .
 				disabled( empty( $args['disabled'] ), false, false ) . ' /> ' .
 				esc_html( apply_filters( 'the_category', $category->name ) ) . '</label>';
