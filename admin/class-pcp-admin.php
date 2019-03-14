@@ -23,48 +23,16 @@
 class PCP_Admin {
 
 	/**
-	 * The ID of this plugin.
-	 *
-	 * @since    1.0.0
-	 * @access   private
-	 * @var      string    $plugin_name    The ID of this plugin.
-	 */
-	private $plugin_name;
-
-	/**
-	 * The version of this plugin.
-	 *
-	 * @since    1.0.0
-	 * @access   private
-	 * @var      string    $version    The current version of this plugin.
-	 */
-	private $version;
-
-	/**
 	 * Initialize the class and set its properties.
 	 *
 	 * @since    1.0.0
 	 * @param      string $plugin_name       The name of this plugin.
 	 * @param      string $version    The version of this plugin.
 	 */
-	public function __construct( $plugin_name, $version ) {
-
-		$this->plugin_name = $plugin_name;
-		$this->version = $version;
-
-		$this->convert_tax_selection_to_radio_btns();
-		$this->admin_settings = new PCP_Admin_Settings();
-
-		// launch each taxonomy class when tax is registered
-		// add_action( 'registered_taxonomy', array( $this, 'convert_tax_selection_to_radio_btns' ), 10, 1 );
+	public function __construct() {
+		$this->settings = new PCP_Admin_Settings();
+		$this->edit_post = new PCP_Admin_Edit_Post();
 	}
-
-	public function convert_tax_selection_to_radio_btns(){
-
-		$plugin_settings = PCP::settings();
-		if( ! isset( $plugin_settings['enabled_taxonomies'] ) ) {
-			return;
-		}
 
 	/**
 	 * Get all taxonomies - for plugin options checklist

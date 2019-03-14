@@ -66,11 +66,6 @@ class PCP {
 	 * @since    1.0.0
 	 */
 	public function __construct() {
-		if ( defined( 'PRIMARY_CAT_FOR_POSTS_VERSION' ) ) {
-			$this->version = PRIMARY_CAT_FOR_POSTS_VERSION;
-		} else {
-			$this->version = '1.0.0';
-		}
 		$this->plugin_name = 'primary-cat-for-posts';
 
 		$this->load_dependencies();
@@ -195,7 +190,7 @@ class PCP {
 	 * @access   private
 	 */
 	private function load_admin_module() {
-		$this->admin = new PCP_Admin( $this->get_plugin_name(), $this->get_version() );
+		$this->admin = new PCP_Admin();
 	}
 
 	/**
@@ -206,7 +201,7 @@ class PCP {
 	 * @access   private
 	 */
 	private function load_public_module() {
-		$plugin_public = new PCP_Public( $this->get_plugin_name(), $this->get_version() );
+		$plugin_public = new PCP_Public();
 	}
 
 	/**
@@ -218,16 +213,6 @@ class PCP {
 	 */
 	public function get_plugin_name() {
 		return $this->plugin_name;
-	}
-
-	/**
-	 * Retrieve the version number of the plugin.
-	 *
-	 * @since     1.0.0
-	 * @return    string    The version number of the plugin.
-	 */
-	public function get_version() {
-		return $this->version;
 	}
 
 	/**
