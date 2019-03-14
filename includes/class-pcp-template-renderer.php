@@ -5,16 +5,16 @@ class PCP_Template_Renderer {
 	 * Render Templates
 	 *
 	 * @access public
-	 * @param mixed  $template_name
-	 * @param array  $args (default: array())
-	 * @param boolean	$load
-	 * @param string $template_path (default: '')
-	 * @param string $default_path (default: '')
+	 * @param mixed   $template_name
+	 * @param array   $args (default: array())
+	 * @param boolean $load
+	 * @param string  $template_path (default: '')
+	 * @param string  $default_path (default: '')
 	 * @return void
 	 */
-	public static function render( $template_name, $args = array(), $load = true, $template_path = '', $default_path = '') {
+	public static function render( $template_name, $args = array(), $load = true, $template_path = '', $default_path = '' ) {
 		if ( $args && is_array( $args ) ) {
-			extract( $args );
+			extract( $args ); // @codingStandardsIgnoreLine.
 		}
 
 		$located = self::locate_template( $template_name, $template_path, $default_path );
@@ -27,8 +27,8 @@ class PCP_Template_Renderer {
 		include( $located );
 		do_action( 'pcp_after_template_render', $template_name, $template_path, $located, $args );
 		$output = ob_get_clean();
-		
-		if( ! apply_filters( 'pcp_load_template', $load, $template_name, $args ) ) {
+
+		if ( ! apply_filters( 'pcp_load_template', $load, $template_name, $args ) ) {
 				return $output;
 		}
 

@@ -18,6 +18,7 @@ class PCP_Admin_Settings {
 
 	/**
 	 * Add plugin's options page
+	 *
 	 * @access public
 	 * @return void
 	 * @since  1.0
@@ -34,13 +35,14 @@ class PCP_Admin_Settings {
 
 	/**
 	 * Render the settings page
+	 *
 	 * @access public
 	 * @return void
 	 * @since  1.0
 	 */
 	public function admin_page() {
-		$this->pcp_options = PCP::settings(); 
-		PCP_Template_Renderer::render('admin/settings-page.php');		
+		$this->pcp_options = PCP::settings();
+		PCP_Template_Renderer::render( 'admin/settings-page.php' );
 	}
 
 	public function init() {
@@ -77,14 +79,16 @@ class PCP_Admin_Settings {
 
 	/**
 	 * Show all taxonomies
+	 *
 	 * @access public
 	 * @return array
 	 * @since  1.0
 	 */
 	public function render_enable_taxonomies_setting() {
-		PCP_Template_Renderer::render('admin/enabled-taxonomies-setting.php', [
-			'taxonomies' => PCP_Admin::get_all_taxonomies(), 
-			'enabled_taxonomies' => isset($this->pcp_options['enabled_taxonomies']) ? $this->pcp_options['enabled_taxonomies'] : []
+		PCP_Template_Renderer::render(
+			'admin/enabled-taxonomies-setting.php', [
+				'taxonomies' => PCP_Admin::get_all_taxonomies(),
+				'enabled_taxonomies' => isset( $this->pcp_options['enabled_taxonomies'] ) ? $this->pcp_options['enabled_taxonomies'] : [],
 			]
 		);
 	}

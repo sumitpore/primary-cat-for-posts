@@ -23,35 +23,34 @@ class PCP_Admin {
 
 	/**
 	 * Get all taxonomies - for plugin options checklist
-	 * 
+	 *
 	 * @access public
 	 * @return array
 	 * @since  1.0.0
 	 */
 	public static function get_all_taxonomies() {
-
-		$args = array (
+		$args = array(
 			'public'   => true,
 			'show_ui'  => true,
-			'_builtin' => true
+			'_builtin' => true,
 		);
 
 		$defaults = get_taxonomies( $args, 'objects' );
 
 		// Remove Post tag from default taxonomies list
-		if( isset( $defaults['post_tag'] ) ){
+		if ( isset( $defaults['post_tag'] ) ) {
 			unset( $defaults['post_tag'] );
 		}
 
 		$args['_builtin'] = false;
 		$custom = get_taxonomies( $args, 'objects' );
 
-		//Remove tag like custom taxonomies
+		// Remove tag like custom taxonomies
 		$filtered_custom_taxonomies = array_filter(
-			$custom, 
-			function($taxonomy){
-				return strpos($taxonomy, '_tag') === false;
-			}, 
+			$custom,
+			function( $taxonomy ) {
+				return strpos( $taxonomy, '_tag' ) === false;
+			},
 			ARRAY_FILTER_USE_KEY
 		);
 

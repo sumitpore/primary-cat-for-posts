@@ -46,7 +46,7 @@ final class PCP {
 	 * @var      string    $version    The current version of the plugin.
 	 */
 	private $version;
-	
+
 	/**
 	 * Holds the instance of main admin class
 	 *
@@ -308,7 +308,7 @@ final class PCP {
 	 * @return void
 	 */
 	public static function get_plugin_path() {
-		if ( self::$plugin_path === null ) {
+		if ( null === self::$plugin_path ) {
 			self::$plugin_path = plugin_dir_path( dirname( __FILE__ ) );
 		}
 		return self::$plugin_path;
@@ -319,10 +319,10 @@ final class PCP {
 	 *
 	 * @return void
 	 */
-	public static function settings(){
+	public static function settings() {
 		static $settings = null;
-		if( $settings === null ){
-			$settings = get_option('pcp_options');
+		if ( null === $settings ) {
+			$settings = get_option( 'pcp_options' );
 		}
 		return $settings;
 	}

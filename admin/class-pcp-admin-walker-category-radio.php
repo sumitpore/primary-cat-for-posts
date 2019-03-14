@@ -11,7 +11,10 @@
  */
 class PCP_Admin_Walker_Category_Radio extends Walker {
 	public $tree_type = 'category';
-	public $db_fields = array ('parent' => 'parent', 'id' => 'term_id'); //TODO: decouple this
+	public $db_fields = array(
+		'parent' => 'parent',
+		'id' => 'term_id',
+	); 
 
 	/**
 	 * Starts the list before the elements are added.
@@ -25,7 +28,7 @@ class PCP_Admin_Walker_Category_Radio extends Walker {
 	 * @param array  $args   An array of arguments. @see wp_terms_checklist()
 	 */
 	public function start_lvl( &$output, $depth = 0, $args = array() ) {
-		$indent = str_repeat("\t", $depth);
+		$indent = str_repeat( "\t", $depth );
 		$output .= "$indent<ul class='children'>\n";
 	}
 
@@ -41,7 +44,7 @@ class PCP_Admin_Walker_Category_Radio extends Walker {
 	 * @param array  $args   An array of arguments. @see wp_terms_checklist()
 	 */
 	public function end_lvl( &$output, $depth = 0, $args = array() ) {
-		$indent = str_repeat("\t", $depth);
+		$indent = str_repeat( "\t", $depth );
 		$output .= "$indent</ul>\n";
 	}
 
@@ -66,7 +69,7 @@ class PCP_Admin_Walker_Category_Radio extends Walker {
 		}
 
 		/* RB4T mod: Replace default $name variable */
-		$name = 'radio_tax_input['.$taxonomy.']';
+		$name = 'radio_tax_input[' . $taxonomy . ']';
 		/* end */
 
 		$args['popular_cats'] = empty( $args['popular_cats'] ) ? array() : $args['popular_cats'];
@@ -98,7 +101,7 @@ class PCP_Admin_Walker_Category_Radio extends Walker {
 		} else {
 			/** This filter is documented in wp-includes/category-template.php */
 			$output .= "\n<li id='{$taxonomy}-{$category->term_id}'$class>" .
-				'<label class="selectit"><input value="' . intval( $category->term_id ) . '" type="radio" name="'.esc_attr( $name ).'" id="in-'.esc_attr( $taxonomy ).'-' . intval( $category->term_id ) . '"' .
+				'<label class="selectit"><input value="' . intval( $category->term_id ) . '" type="radio" name="' . esc_attr( $name ) . '" id="in-' . esc_attr( $taxonomy ) . '-' . intval( $category->term_id ) . '"' .
 				checked( $category->term_id, $selected_id, false ) .
 				disabled( empty( $args['disabled'] ), false, false ) . ' /> ' .
 				esc_html( apply_filters( 'the_category', $category->name ) ) . '</label>';

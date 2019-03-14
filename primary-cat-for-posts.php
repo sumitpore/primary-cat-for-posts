@@ -51,7 +51,7 @@ require plugin_dir_path( __FILE__ ) . 'includes/class-pcp.php';
  * @since  1.0.0
  * @return PCP
  */
-function PCP() {
+function PCP() { // @codingStandardsIgnoreLine
 	return PCP::instance();
 }
 

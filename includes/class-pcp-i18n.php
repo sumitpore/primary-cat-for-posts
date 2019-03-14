@@ -23,7 +23,7 @@
  * @subpackage PCP/includes
  * @author     Sumit P <sumit.pore@gmail.com>
  */
-class PCP_i18n {
+class PCP_i18n { // @codingStandardsIgnoreLine.
 
 
 	/**
