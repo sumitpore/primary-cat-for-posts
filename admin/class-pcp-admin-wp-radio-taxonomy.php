@@ -244,8 +244,6 @@ class PCP_Admin_WP_Radio_Taxonomy {
 		return $terms;
 	}
 
-
-
 	/**
 	 * Only ever save a single term
 	 *
@@ -304,10 +302,6 @@ class PCP_Admin_WP_Radio_Taxonomy {
 		}		
 
 		return;
-	}
-
-	public function update_unselected_required_taxonomies_meta(){
-
 	}
 
 	/**

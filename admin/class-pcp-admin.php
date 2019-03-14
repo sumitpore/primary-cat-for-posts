@@ -1,15 +1,4 @@
 <?php
-
-/**
- * The admin-specific functionality of the plugin.
- *
- * @link       https://sumitpore.in
- * @since      1.0.0
- *
- * @package    PCP
- * @subpackage PCP/admin
- */
-
 /**
  * The admin-specific functionality of the plugin.
  *
