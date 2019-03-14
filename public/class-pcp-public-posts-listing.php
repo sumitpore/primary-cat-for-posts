@@ -57,7 +57,7 @@ class PCP_Public_Posts_Listing {
 		$post_type = isset( $atts['post_type'] ) ? $atts['post_type'] : '';
 		$taxonomy = isset( $atts['taxonomy'] ) ? $atts['taxonomy'] : '';
 		$term = isset( $atts['term'] ) ? $atts['term'] : '';
-
+		
 		if ( empty( $post_type ) || empty( $taxonomy ) || empty( $term ) ) {
 			_doing_it_wrong( __FUNCTION__, __( 'The shortcode is missing one of the following parameters: post_type, taxonomy & term. `pcp_list_posts` shortcode needs all of them', PRIMARY_CAT_FOR_POSTS_TEXTDOMAIN ), PRIMARY_CAT_FOR_POSTS_VERSION );
 			return '';

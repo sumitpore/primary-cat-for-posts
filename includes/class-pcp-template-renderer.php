@@ -52,7 +52,7 @@ class PCP_Template_Renderer {
 	 */
 	private static function locate_template( $template_name, $template_path = '', $default_path = '' ) {
 		if ( ! $template_path ) {
-			$template_path = 'templates/';
+			$template_path = 'pcp-templates/';
 		}
 		if ( ! $default_path ) {
 			$default_path = PCP::get_plugin_path() . 'templates/';
