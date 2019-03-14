@@ -7,22 +7,32 @@ class PCP_Template_Renderer {
 	 * @access public
 	 * @param mixed  $template_name
 	 * @param array  $args (default: array())
+	 * @param boolean	$load
 	 * @param string $template_path (default: '')
 	 * @param string $default_path (default: '')
 	 * @return void
 	 */
-	public static function render( $template_name, $args = array(), $template_path = '', $default_path = '' ) {
+	public static function render( $template_name, $args = array(), $load = true, $template_path = '', $default_path = '') {
 		if ( $args && is_array( $args ) ) {
 			extract( $args );
 		}
 
 		$located = self::locate_template( $template_name, $template_path, $default_path );
-		if ( false != $located ) {
-			do_action( 'pcp_before_template_render', $template_name, $template_path, $located, $args );
-			include( $located );
-			do_action( 'pcp_after_template_render', $template_name, $template_path, $located, $args );
+		if ( false == $located ) {
+			return;
 		}
-		return $located;
+
+		ob_start();
+		do_action( 'pcp_before_template_render', $template_name, $template_path, $located, $args );
+		include( $located );
+		do_action( 'pcp_after_template_render', $template_name, $template_path, $located, $args );
+		$output = ob_get_clean();
+		
+		if( ! apply_filters( 'pcp_load_template', $load, $template_name, $args ) ) {
+				return $output;
+		}
+
+		echo $output;
 	}
 
 	/**
