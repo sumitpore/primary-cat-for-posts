@@ -36,26 +36,6 @@ if ( ! defined( 'WPINC' ) ) {
  */
 define( 'PRIMARY_CAT_FOR_POSTS_VERSION', '1.0.0' );
 define( 'PRIMARY_CAT_FOR_POSTS_TEXTDOMAIN', 'primary-cat-for-posts' );
-/**
- * The code that runs during plugin activation.
- * This action is documented in includes/class-pcp-activator.php
- */
-function activate_pcp() {
-	require_once plugin_dir_path( __FILE__ ) . 'includes/class-pcp-activator.php';
-	PCP_Activator::activate();
-}
-
-/**
- * The code that runs during plugin deactivation.
- * This action is documented in includes/class-pcp-deactivator.php
- */
-function deactivate_pcp() {
-	require_once plugin_dir_path( __FILE__ ) . 'includes/class-pcp-deactivator.php';
-	PCP_Deactivator::deactivate();
-}
-
-register_activation_hook( __FILE__, 'activate_pcp' );
-register_deactivation_hook( __FILE__, 'deactivate_pcp' );
 
 /**
  * The core plugin class that is used to define internationalization,
@@ -64,15 +44,15 @@ register_deactivation_hook( __FILE__, 'deactivate_pcp' );
 require plugin_dir_path( __FILE__ ) . 'includes/class-pcp.php';
 
 /**
- * Begins execution of the plugin.
+ * Main instance of PCP class.
  *
- * Since everything within the plugin is registered via hooks,
- * then kicking off the plugin from this point in the file does
- * not affect the page life cycle.
+ * Returns the main instance of PCP to prevent the need to use globals.
  *
- * @since    1.0.0
+ * @since  1.0.0
+ * @return PCP
  */
-function run_pcp() {
-	$plugin = new PCP();
+function PCP() {
+	return PCP::instance();
 }
-run_pcp();
+
+$GLOBALS['pcp'] = PCP();

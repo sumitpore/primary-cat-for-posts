@@ -27,7 +27,7 @@
  * @subpackage PCP/includes
  * @author     Sumit P <sumit.pore@gmail.com>
  */
-class PCP {
+final class PCP {
 
 	/**
 	 * The unique identifier of this plugin.
@@ -48,6 +48,14 @@ class PCP {
 	protected $version;
 
 	/**
+	 * The single instance of the class.
+	 *
+	 * @var PCP
+	 * @since 1.0.0
+	 */
+	protected static $_instance = null;
+	
+	/**
 	 * Main plugin path /wp-content/plugins/<plugin-folder>/.
 	 *
 	 * @since    1.0.0
@@ -55,6 +63,41 @@ class PCP {
 	 * @var      string    $plugin_path    Main path.
 	 */
 	private static $plugin_path = null;
+
+	/**
+	 * Main PCP Instance.
+	 *
+	 * Ensures only one instance of PCP is loaded or can be loaded.
+	 *
+	 * @since 1.0.0
+	 * @static
+	 * @see PCP()
+	 * @return PCP - Main instance.
+	 */
+	public static function instance() {
+		if ( is_null( self::$_instance ) ) {
+			self::$_instance = new self();
+		}
+		return self::$_instance;
+	}
+
+	/**
+	 * Cloning is forbidden.
+	 *
+	 * @since 1.0.0
+	 */
+	public function __clone() {
+		_doing_it_wrong( __FUNCTION__, __( 'Cloning is forbidden.', PRIMARY_CAT_FOR_POSTS_TEXTDOMAIN ), PRIMARY_CAT_FOR_POSTS_VERSION );
+	}
+
+	/**
+	 * Unserializing instances of this class is forbidden.
+	 *
+	 * @since 1.0.0
+	 */
+	public function __wakeup() {
+		_doing_it_wrong( __FUNCTION__, __( 'Unserializing instances of this class is forbidden.', PRIMARY_CAT_FOR_POSTS_TEXTDOMAIN ), PRIMARY_CAT_FOR_POSTS_VERSION );
+	}
 
 	/**
 	 * Define the core functionality of the plugin.
@@ -65,7 +108,7 @@ class PCP {
 	 *
 	 * @since    1.0.0
 	 */
-	public function __construct() {
+	private function __construct() {
 		$this->plugin_name = 'primary-cat-for-posts';
 
 		$this->load_dependencies();
@@ -201,7 +244,7 @@ class PCP {
 	 * @access   private
 	 */
 	private function load_public_module() {
-		$plugin_public = new PCP_Public();
+		$this->public = new PCP_Public();
 	}
 
 	/**
