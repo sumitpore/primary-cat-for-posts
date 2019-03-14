@@ -45,16 +45,16 @@ class PCP_Admin_Edit_Post {
 			return;
 		}
 
-		$list_of_all_unselected_required_taxonomies = get_post_meta( $post->ID, 'unselected_required_taxonomies', true );
+		$list_of_unselected_required_taxonomies = get_post_meta( $post->ID, 'unselected_required_taxonomies', true );
 
-		if ( empty( $list_of_all_unselected_required_taxonomies ) ) {
+		if ( empty( $list_of_unselected_required_taxonomies ) ) {
 			return;
 		}
 
 		printf(
 			'<div class="error below-h2"><p><b>%s %s</b></p></div>',
 			esc_html__( 'Please set following required Categories: ', PRIMARY_CAT_FOR_POSTS_TEXTDOMAIN ),
-			esc_html__( implode( ', ', $list_of_all_unselected_required_taxonomies ) )
+			esc_html__( implode( ', ', $list_of_unselected_required_taxonomies ) )
 		);
 
 		// Delete the post meta after message is shown
@@ -104,10 +104,10 @@ class PCP_Admin_Edit_Post {
 			return;
 		}
 
-		$list_of_all_unselected_required_taxonomies = get_post_meta( $post_id, 'unselected_required_taxonomies', true );
+		$list_of_unselected_required_taxonomies = get_post_meta( $post_id, 'unselected_required_taxonomies', true );
 
 		// All required taxonomies are set
-		if ( empty( $list_of_all_unselected_required_taxonomies ) ) {
+		if ( empty( $list_of_unselected_required_taxonomies ) ) {
 			return;
 		}
 

@@ -304,18 +304,7 @@ if ( ! class_exists( 'PCP_Admin_WP_Radio_Taxonomy' ) ) :
 
 				// if category and not saving any terms, set post meta
 				if ( empty( $term ) || is_wp_error( $term ) ) {
-					$list_of_all_unselected_required_taxonomies = $old = get_post_meta( $post_id, 'unselected_required_taxonomies', true ); // @codingStandardsIgnoreLine
-					$taxonomy_name = get_taxonomy( $this->taxonomy )->labels->singular_name;
-
-					if ( empty( $list_of_all_unselected_required_taxonomies ) ) {
-						$list_of_all_unselected_required_taxonomies = [];
-					}
-
-					if ( ! in_array( $taxonomy_name, $list_of_all_unselected_required_taxonomies ) ) {
-						$list_of_all_unselected_required_taxonomies[] = $taxonomy_name;
-						update_post_meta( $post_id, 'unselected_required_taxonomies', $list_of_all_unselected_required_taxonomies, $old );
-					}
-
+					$this->update_list_of_unselected_required_taxonomies( $post_id );
 					return;
 				}
 
@@ -326,6 +315,30 @@ if ( ! class_exists( 'PCP_Admin_WP_Radio_Taxonomy' ) ) :
 			}
 
 			return;
+		}
+
+		/**
+		 * Updates a post meta containing information about required taxonomies 
+		 * not selected by user.
+		 *
+		 * Note: This list is deleted after an error message is shown
+		 * 
+		 * @param int $post_id
+		 * @return void
+		 */
+		private function update_list_of_unselected_required_taxonomies( $post_id ) {
+
+			$list_of_unselected_required_taxonomies = $old = get_post_meta( $post_id, 'unselected_required_taxonomies', true ); // @codingStandardsIgnoreLine
+			$taxonomy_name = get_taxonomy( $this->taxonomy )->labels->singular_name;
+
+			if ( empty( $list_of_unselected_required_taxonomies ) ) {
+				$list_of_unselected_required_taxonomies = [];
+			}
+
+			if ( ! in_array( $taxonomy_name, $list_of_unselected_required_taxonomies ) ) {
+				$list_of_unselected_required_taxonomies[] = $taxonomy_name;
+				update_post_meta( $post_id, 'unselected_required_taxonomies', $list_of_unselected_required_taxonomies, $old );
+			}
 		}
 
 		/**
