@@ -66,25 +66,12 @@ class PCP_Admin {
 			return;
 		}
 
-		$taxonomies = array_keys( self::get_all_taxonomies() );
-		if(! $taxonomies) {
-			return;
-		}
-
-		foreach( $taxonomies as $taxonomy_name ){
-			if ( ! in_array( $taxonomy_name, (array) $plugin_settings['enabled_taxonomies'] ) ) {
-				return;
-			}
-			new PCP_Admin_WP_Radio_Taxonomy( $taxonomy_name );
-		} 
-
-	}
-
 	/**
 	 * Get all taxonomies - for plugin options checklist
+	 * 
 	 * @access public
 	 * @return array
-	 * @since  1.0
+	 * @since  1.0.0
 	 */
 	public static function get_all_taxonomies() {
 
@@ -95,10 +82,27 @@ class PCP_Admin {
 		);
 
 		$defaults = get_taxonomies( $args, 'objects' );
+
+		// Remove Post tag from default taxonomies list
+		if( isset( $defaults['post_tag'] ) ){
+			unset( $defaults['post_tag'] );
+		}
+
 		$args['_builtin'] = false;
 		$custom = get_taxonomies( $args, 'objects' );
-		$taxonomies = array_merge( $defaults, $custom );
+
+		//Remove tag like custom taxonomies
+		$filtered_custom_taxonomies = array_filter(
+			$custom, 
+			function($taxonomy){
+				return strpos($taxonomy, '_tag') === false;
+			}, 
+			ARRAY_FILTER_USE_KEY
+		);
+
+		$taxonomies = array_merge( $defaults, $filtered_custom_taxonomies );
 		ksort( $taxonomies );
 		return $taxonomies;
 	}
+
 }
