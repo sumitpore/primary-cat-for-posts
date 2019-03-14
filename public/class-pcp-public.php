@@ -1,15 +1,4 @@
 <?php
-
-/**
- * The public-facing functionality of the plugin.
- *
- * @link       https://sumitpore.in
- * @since      1.0.0
- *
- * @package    PCP
- * @subpackage PCP/public
- */
-
 /**
  * The public-facing functionality of the plugin.
  *
@@ -18,6 +7,7 @@
  *
  * @package    PCP
  * @subpackage PCP/public
+ * @since      1.0.0
  * @author     Sumit P <sumit.pore@gmail.com>
  */
 class PCP_Public {
@@ -25,10 +15,9 @@ class PCP_Public {
 	 * Initialize the class and set its properties.
 	 *
 	 * @since    1.0.0
-	 * @param      string $plugin_name       The name of the plugin.
-	 * @param      string $version    The version of this plugin.
 	 */
 	public function __construct() {
+		$this->public_posts_listing = new PCP_Public_Posts_Listing();
 	}
 
 }
