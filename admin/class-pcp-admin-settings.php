@@ -1,15 +1,4 @@
 <?php
-
-/**
- * Loads Settings Page of PCP Plugin
- *
- * @link       https://sumitpore.in
- * @since      1.0.0
- *
- * @package    PCP
- * @subpackage PCP/admin
- */
-
 /**
  * Loads Settings Page of PCP Plugin
  *
