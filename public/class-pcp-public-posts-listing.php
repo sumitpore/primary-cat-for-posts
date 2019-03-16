@@ -3,7 +3,7 @@
  * Allows user to fetch posts/cpt by their respective primary category
  *
  * @package    PCP
- * @subpackage PCP/public
+ * @subpackage PCP/public/posts_listing
  * @since      1.0.0
  * @author     Sumit P <sumit.pore@gmail.com>
  */

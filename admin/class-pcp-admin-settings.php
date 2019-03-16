@@ -3,7 +3,7 @@
  * Loads Settings Page of PCP Plugin
  *
  * @package    PCP
- * @subpackage PCP/settings
+ * @subpackage PCP/admin/settings
  * @author     Sumit P <sumit.pore@gmail.com>
  */
 class PCP_Admin_Settings {

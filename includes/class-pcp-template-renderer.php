@@ -6,7 +6,7 @@
  *
  * @since      1.0.0
  * @package    PCP
- * @subpackage PCP/includes
+ * @subpackage PCP/includes/template_renderer
  * @author     Sumit P <sumit.pore@gmail.com>
  */
 class PCP_Template_Renderer {

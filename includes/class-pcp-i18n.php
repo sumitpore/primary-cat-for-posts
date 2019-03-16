@@ -7,7 +7,7 @@
  *
  * @since      1.0.0
  * @package    PCP
- * @subpackage PCP/includes
+ * @subpackage PCP/includes/i18n
  * @author     Sumit P <sumit.pore@gmail.com>
  */
 class PCP_i18n { // @codingStandardsIgnoreLine.

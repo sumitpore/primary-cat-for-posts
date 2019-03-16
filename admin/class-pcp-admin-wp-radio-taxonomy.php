@@ -1,9 +1,18 @@
 <?php
-
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
-
+/**
+ * Process Single Taxonomy
+ *
+ * This class is responsible for
+ * 1. Show Single taxonomy in radio-button format by creating a custom meta box
+ * 2. Map the selected term with Post
+ *
+ * @package    PCP
+ * @subpackage PCP/admin/wp_radio_taxonomy
+ * @author     Sumit P <sumit.pore@gmail.com>
+ */
 if ( ! class_exists( 'PCP_Admin_WP_Radio_Taxonomy' ) ) :
 
 	class PCP_Admin_WP_Radio_Taxonomy {

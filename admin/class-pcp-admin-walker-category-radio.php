@@ -5,9 +5,12 @@
  *
  * @since 1.0.0
  *
+ * @package    PCP
+ * @subpackage PCP/admin/walker_category_radio
  * @see Walker
  * @see wp_category_checklist()
  * @see wp_terms_checklist()
+ *
  */
 class PCP_Admin_Walker_Category_Radio extends Walker {
 	public $tree_type = 'category';

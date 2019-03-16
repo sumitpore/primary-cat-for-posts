@@ -3,7 +3,7 @@
  * Handles Selection of Primary category on Edit Post page
  *
  * @package    PCP
- * @subpackage PCP/edit_post
+ * @subpackage PCP/admin/edit_post
  * @author     Sumit P <sumit.pore@gmail.com>
  */
 class PCP_Admin_Edit_Post {
