@@ -106,11 +106,12 @@ if ( ! class_exists( 'PCP_Admin_WP_Radio_Taxonomy' ) ) :
 		 */
 		public function metabox( $post, $box ) {
 			$defaults = array( 'taxonomy' => 'category' );
-			if ( ! isset( $box['args'] ) || ! is_array( $box['args'] ) ) {
-				$args = array();
-			} else {
+			$args = [];
+
+			if ( isset( $box['args'] ) && is_array( $box['args'] ) ) {
 				$args = $box['args'];
 			}
+
 			extract( wp_parse_args( $args, $defaults ), EXTR_SKIP ); // @codingStandardsIgnoreLine.
 
 			// get current terms.
@@ -118,69 +119,28 @@ if ( ! class_exists( 'PCP_Admin_WP_Radio_Taxonomy' ) ) :
 
 			// get first term object.
 			$single_term = ! empty( $checked_terms ) && ! is_wp_error( $checked_terms ) ? array_pop( $checked_terms ) : false;
-			$single_term_id = $single_term ? (int) $single_term->term_id : 0;
-			?>
-		<div id="taxonomy-<?php echo esc_attr( $taxonomy ); ?>" class="radio-buttons-for-taxonomies categorydiv form-no-clear">
-			<ul id="<?php echo esc_attr( $taxonomy ); ?>-tabs" class="category-tabs">
-				<?php // Below hidden element submits cat as -1 if user has not selected any cat. ?>
-				<input type="hidden" name="<?php echo esc_attr( 'radio_tax_input[' . $taxonomy . ']' ); ?>" value="-1">
-				<li class="tabs"><a href="#<?php echo esc_attr( $taxonomy ); ?>-all" tabindex="3"><?php echo esc_html( $this->tax_obj->labels->all_items ); ?></a></li>
-				<li class="hide-if-no-js"><a href="#<?php echo esc_attr( $taxonomy ); ?>-pop" tabindex="3"><?php esc_html_e( 'Most Used', PRIMARY_CAT_FOR_POSTS_TEXTDOMAIN ); ?></a></li>
-			</ul>
 
-			<?php wp_nonce_field( 'radio_nonce-' . $taxonomy, '_radio_nonce-' . $taxonomy ); ?>
+			// Popular Terms.
+			$popular = get_terms(
+				$taxonomy, array(
+					'orderby' => 'count',
+					'order' => 'DESC',
+					'number' => 10,
+					'hierarchical' => false,
+				)
+			);
 
-			<div id="<?php echo esc_attr( $taxonomy ); ?>-pop" class="tabs-panel" style="display: none;">
-				<ul id="<?php echo esc_attr( $taxonomy ); ?>checklist-pop" class="categorychecklist form-no-clear" >
-					<?php
-					$popular = get_terms(
-						$taxonomy, array(
-							'orderby' => 'count',
-							'order' => 'DESC',
-							'number' => 10,
-							'hierarchical' => false,
-						)
-					);
-
-					if ( ! current_user_can( $this->tax_obj->cap->assign_terms ) ) {
-						$disabled = 'disabled="disabled"';
-					} else {
-						$disabled = '';
-					}
-
-						$popular_ids = array();
-					?>
-
-							<?php
-							foreach ( $popular as $term ) {
-								$popular_ids[] = $term->term_id;
-
-								$value = is_taxonomy_hierarchical( $taxonomy ) ? $term->term_id : $term->slug;
-								$id = 'popular-' . $taxonomy . '-' . $term->term_id;
-
-								echo "<li id='$id'><label class='selectit'>"; // @codingStandardsIgnoreLine.
-								echo "<input type='radio' id='in-" . intval( $id ) . "'" . checked( $single_term_id, $term->term_id, false ) . " value='" . esc_attr( $value ) . "' " . esc_html( $disabled ) . ' />&nbsp;' . esc_html( $term->name ) . '<br />';
-
-								echo '</label></li>';
-							}
-							?>
-				</ul>
-			</div>
-
-			<div id="<?php echo esc_attr( $taxonomy ); ?>-all" class="tabs-panel">
-				<ul id="<?php echo esc_attr( $taxonomy ); ?>checklist" data-wp-lists="list:<?php echo esc_attr( $taxonomy ); ?>" class="categorychecklist form-no-clear">
-						<?php
-						wp_terms_checklist(
-							$post->ID, array(
-								'taxonomy' => $taxonomy,
-								'popular_cats' => $popular_ids,
-							)
-						);
-						?>
-				</ul>
-			</div>
-		</div>
-			<?php
+			PCP_Template_Renderer::render(
+				'admin/radio-taxonomy-metabox.php', [
+					'post'              => $post,
+					'taxonomy'          => $taxonomy,
+					'radio_input_name'  => 'radio_tax_input[' . $taxonomy . ']',
+					'taxonomy_object'   => $this->tax_obj,
+					'popular'           => $popular,
+					'disabled'          => ! current_user_can( $this->tax_obj->cap->assign_terms ) ? 'disabled="disabled"' : '',
+					'single_term_id'    => $single_term ? (int) $single_term->term_id : 0,
+				]
+			);
 		}
 
 
