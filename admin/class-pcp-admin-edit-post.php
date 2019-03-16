@@ -1,6 +1,6 @@
-<?php
+<?php //Added Docblock after below guard condition. // @codingStandardsIgnoreLine.
 if ( ! defined( 'ABSPATH' ) ) {
-	exit; // Exit if accessed directly
+	exit; // Exit if accessed directly.
 }
 /**
  * Handles Selection of Primary category on Edit Post page
@@ -11,6 +11,11 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 class PCP_Admin_Edit_Post {
 
+	/**
+	 * Initialize the class and register callbacks on required hooks
+	 *
+	 * @since    1.0.0
+	 */
 	public function __construct() {
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
 		add_action( 'save_post', array( $this, 'revert_to_draft_if_required_cats_are_not_selected' ), 999 );
@@ -23,7 +28,7 @@ class PCP_Admin_Edit_Post {
 	 * Loads required scripts on Add new or Edit Post screen
 	 *
 	 * @access public
-	 * @param string $hook
+	 * @param string $hook Hook Suffix for the current admin page.
 	 * @return void
 	 * @since  1.0.0
 	 */
@@ -38,12 +43,12 @@ class PCP_Admin_Edit_Post {
 	/**
 	 * Display an error message if primary category is not selected
 	 *
-	 * @param WP_Post The current post object.
+	 * @param WP_Post $post The current post object.
 	 * @access public
 	 * @return void
 	 * @since  1.0.0
 	 */
-	function show_error_if_primary_cat_not_selected( $post ) {
+	public function show_error_if_primary_cat_not_selected( $post ) {
 		if ( 'auto-draft' === get_post_status( $post ) ) {
 			return;
 		}
@@ -76,7 +81,7 @@ class PCP_Admin_Edit_Post {
 			);
 		}
 
-		// Delete the post meta after message is shown
+		// Delete the post meta after message is shown.
 		delete_post_meta( $post->ID, 'unselected_required_taxonomies' );
 	}
 
@@ -90,7 +95,7 @@ class PCP_Admin_Edit_Post {
 	public function initiate_radio_buttons_conversion() {
 		global $pagenow;
 
-		// We want to load this only on Add New CPT/Edit CPT page
+		// We want to load this only on Add New CPT/Edit CPT page.
 		if ( ! in_array( $pagenow, array( 'post.php', 'post-new.php' ) ) ) {
 			return;
 		}
@@ -126,7 +131,7 @@ class PCP_Admin_Edit_Post {
 
 		$list_of_unselected_required_taxonomies = get_post_meta( $post_id, 'unselected_required_taxonomies', true );
 
-		// All required taxonomies are set
+		// All required taxonomies are set.
 		if ( empty( $list_of_unselected_required_taxonomies ) ) {
 			return;
 		}
@@ -140,7 +145,7 @@ class PCP_Admin_Edit_Post {
 
 		wp_update_post( $postdata );
 
-		// Remove category set by WP automatically when user does not select the category
+		// Remove category set by WP automatically when user does not select the category.
 		if ( get_post_type( $post_id ) === 'post' ) {
 			$default_category = (int) get_option( 'default_category' );
 			wp_remove_object_terms( $post_id, $default_category, 'category' );

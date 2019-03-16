@@ -1,6 +1,6 @@
-<?php
+<?php //Added Docblock after below guard condition. // @codingStandardsIgnoreLine.
 if ( ! defined( 'ABSPATH' ) ) {
-	exit; // Exit if accessed directly
+	exit; // Exit if accessed directly.
 }
 /**
  * The admin-specific functionality of the plugin.
@@ -40,7 +40,7 @@ class PCP_Admin {
 
 		$defaults = get_taxonomies( $args, 'objects' );
 
-		// Remove Post tag from default taxonomies list
+		// Remove Post tag from default taxonomies list.
 		if ( isset( $defaults['post_tag'] ) ) {
 			unset( $defaults['post_tag'] );
 		}
@@ -48,7 +48,7 @@ class PCP_Admin {
 		$args['_builtin'] = false;
 		$custom = get_taxonomies( $args, 'objects' );
 
-		// Remove tag like custom taxonomies
+		// Remove tag like custom taxonomies.
 		$filtered_custom_taxonomies = array_filter(
 			$custom,
 			function( $taxonomy ) {

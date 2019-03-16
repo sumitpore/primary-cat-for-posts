@@ -1,6 +1,6 @@
-<?php
+<?php //Added Docblock after below guard condition. // @codingStandardsIgnoreLine.
 if ( ! defined( 'ABSPATH' ) ) {
-	exit; // Exit if accessed directly
+	exit; // Exit if accessed directly.
 }
 /**
  * Allows user to fetch posts/cpt by their respective primary category
@@ -15,8 +15,6 @@ class PCP_Public_Posts_Listing {
 	 * Initialize the class and set its properties.
 	 *
 	 * @since    1.0.0
-	 * @param      string $plugin_name       The name of the plugin.
-	 * @param      string $version    The version of this plugin.
 	 */
 	public function __construct() {
 		add_shortcode( 'pcp_list_posts', array( $this, 'list_posts' ) );
@@ -25,11 +23,11 @@ class PCP_Public_Posts_Listing {
 	/**
 	 * Returns list of posts based on Post type, taxonomy and term
 	 *
-	 * @param string    $post_type
-	 * @param string    $taxonomy
-	 * @param string|id $term
-	 * @param integer   $page_number
-	 * @return void
+	 * @param string    $post_type Post type.
+	 * @param string    $taxonomy Taxonomy.
+	 * @param string|id $term Term.
+	 * @param integer   $page_number Page Number.
+	 * @return WP_Post[] Array of post objects or post IDs.
 	 * @since     1.0.0
 	 */
 	public static function get_posts( $post_type, $taxonomy, $term, $page_number = 1 ) {
@@ -54,8 +52,8 @@ class PCP_Public_Posts_Listing {
 	 *
 	 * Displays the list of posts based on atts passed to shortcode
 	 *
-	 * @param array $atts
-	 * @return void
+	 * @param array $atts Shortcode attributes.
+	 * @return string Returns html of the list.
 	 * @since     1.0.0
 	 */
 	public function list_posts( $atts ) {
@@ -64,7 +62,11 @@ class PCP_Public_Posts_Listing {
 		$term = isset( $atts['term'] ) ? $atts['term'] : '';
 
 		if ( empty( $post_type ) || empty( $taxonomy ) || empty( $term ) ) {
-			_doing_it_wrong( __FUNCTION__, __( 'The shortcode is missing one of the following parameters: post_type, taxonomy & term. `pcp_list_posts` shortcode needs all of them', PRIMARY_CAT_FOR_POSTS_TEXTDOMAIN ), PRIMARY_CAT_FOR_POSTS_VERSION );
+			_doing_it_wrong(
+				__FUNCTION__,
+				esc_html__( 'The shortcode is missing one of the following parameters: post_type, taxonomy & term. `pcp_list_posts` shortcode needs all of them', PRIMARY_CAT_FOR_POSTS_TEXTDOMAIN ),
+				esc_html__( PRIMARY_CAT_FOR_POSTS_VERSION )
+			);
 			return '';
 		}
 

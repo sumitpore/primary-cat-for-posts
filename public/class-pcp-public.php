@@ -1,6 +1,6 @@
-<?php
+<?php //Added Docblock after below guard condition. // @codingStandardsIgnoreLine.
 if ( ! defined( 'ABSPATH' ) ) {
-	exit; // Exit if accessed directly
+	exit; // Exit if accessed directly.
 }
 /**
  * The public-facing functionality of the plugin.

@@ -1,6 +1,6 @@
-<?php
+<?php //Added Docblock after below guard condition. // @codingStandardsIgnoreLine.
 if ( ! defined( 'ABSPATH' ) ) {
-	exit; // Exit if accessed directly
+	exit; // Exit if accessed directly.
 }
 /**
  * Renders the templates
@@ -17,11 +17,11 @@ class PCP_Template_Renderer {
 	 * Render Templates
 	 *
 	 * @access public
-	 * @param mixed   $template_name
-	 * @param array   $args (default: array())
-	 * @param boolean $load
-	 * @param string  $template_path (default: '')
-	 * @param string  $default_path (default: '')
+	 * @param mixed   $template_name Template file to render.
+	 * @param array   $args Variables to make available inside template file.
+	 * @param boolean $load Print or return the template output.
+	 * @param string  $template_path Directory to search for template.
+	 * @param string  $default_path Fallback directory to search for template if not found at $template_path.
 	 * @return void
 	 */
 	public static function render( $template_name, $args = array(), $load = true, $template_path = '', $default_path = '' ) {
@@ -44,7 +44,8 @@ class PCP_Template_Renderer {
 				return $output;
 		}
 
-		echo $output;
+		// Not escaping below line because template code itself should take care of escaping wherever needed.
+		echo $output; // @codingStandardsIgnoreLine.
 	}
 
 	/**
@@ -57,9 +58,9 @@ class PCP_Template_Renderer {
 	 *      $default_path   /   $template_name
 	 *
 	 * @access public
-	 * @param mixed  $template_name
-	 * @param string $template_path (default: '')
-	 * @param string $default_path (default: '')
+	 * @param mixed  $template_name Template file to locate.
+	 * @param string $template_path $template_path Directory to search for template.
+	 * @param string $default_path Fallback directory to search for template if not found at $template_path.
 	 * @return string
 	 */
 	private static function locate_template( $template_name, $template_path = '', $default_path = '' ) {
@@ -70,7 +71,7 @@ class PCP_Template_Renderer {
 			$default_path = PCP::get_plugin_path() . 'templates/';
 		}
 
-		// Look within passed path within the theme - this is priority
+		// Look within passed path within the theme - this is priority.
 		$template = locate_template(
 			array(
 				trailingslashit( $template_path ) . $template_name,
@@ -78,13 +79,13 @@ class PCP_Template_Renderer {
 			)
 		);
 
-		// Get default template
+		// Get default template.
 		if ( ! $template ) {
 			$template = $default_path . $template_name;
 		}
 
 		if ( file_exists( $template ) ) {
-			// Return what we found
+			// Return what we found.
 			return apply_filters( 'pcp_locate_template', $template, $template_name, $template_path );
 		} else {
 			return false;

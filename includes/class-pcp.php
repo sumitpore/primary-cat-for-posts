@@ -1,6 +1,6 @@
-<?php
+<?php //Added Docblock after below guard condition. // @codingStandardsIgnoreLine.
 if ( ! defined( 'ABSPATH' ) ) {
-	exit; // Exit if accessed directly
+	exit; // Exit if accessed directly.
 }
 /**
  * The core plugin class.
@@ -84,7 +84,11 @@ final class PCP {
 	 * @since 1.0.0
 	 */
 	public function __clone() {
-		_doing_it_wrong( __FUNCTION__, __( 'Cloning is forbidden.', PRIMARY_CAT_FOR_POSTS_TEXTDOMAIN ), PRIMARY_CAT_FOR_POSTS_VERSION );
+		_doing_it_wrong(
+			__FUNCTION__,
+			esc_html__( 'Cloning is forbidden.', PRIMARY_CAT_FOR_POSTS_TEXTDOMAIN ),
+			esc_html__( PRIMARY_CAT_FOR_POSTS_VERSION )
+		);
 	}
 
 	/**
@@ -93,7 +97,11 @@ final class PCP {
 	 * @since 1.0.0
 	 */
 	public function __wakeup() {
-		_doing_it_wrong( __FUNCTION__, __( 'Unserializing instances of this class is forbidden.', PRIMARY_CAT_FOR_POSTS_TEXTDOMAIN ), PRIMARY_CAT_FOR_POSTS_VERSION );
+		_doing_it_wrong(
+			__FUNCTION__,
+			esc_html__( 'Unserializing instances of this class is forbidden.', PRIMARY_CAT_FOR_POSTS_TEXTDOMAIN ),
+			esc_html__( PRIMARY_CAT_FOR_POSTS_VERSION )
+		);
 	}
 
 	/**
@@ -134,6 +142,7 @@ final class PCP {
 	/**
 	 * Loads classes present in admin and public directories
 	 *
+	 * @param string $class_name Name of the class.
 	 * @since    1.0.0
 	 * @access   public
 	 * @return void
@@ -286,7 +295,7 @@ final class PCP {
 	 * Returns path of the Plugin's directory
 	 *
 	 * @since     1.0.0
-	 * @return void
+	 * @return string
 	 */
 	public static function get_plugin_path() {
 		if ( null === self::$plugin_path ) {
@@ -299,7 +308,7 @@ final class PCP {
 	 * Returns settings of the plugin
 	 *
 	 * @since     1.0.0
-	 * @return void
+	 * @return array
 	 */
 	public static function settings() {
 		static $settings = null;
