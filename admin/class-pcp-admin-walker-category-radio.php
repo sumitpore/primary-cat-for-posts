@@ -1,10 +1,11 @@
-<?php
+<?php //Added Docblock after below guard condition. // @codingStandardsIgnoreLine.
 if ( ! defined( 'ABSPATH' ) ) {
-	exit; // Exit if accessed directly
+	exit; // Exit if accessed directly.
 }
+
 /**
  * Core walker class to output an unordered list of category radio input elements.
- * Mimics Walker_Category_Checklist except for the radio input /wp-admin/includes/class-walker-category-checklist.php from WordPress 4.4.0
+ * Extends Walker_Category_Checklist except for the radio input /wp-admin/includes/class-walker-category-checklist.php from WordPress 4.4.0
  *
  * @since 1.0.0
  *
@@ -13,46 +14,8 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @see Walker
  * @see wp_category_checklist()
  * @see wp_terms_checklist()
- *
  */
-class PCP_Admin_Walker_Category_Radio extends Walker {
-	public $tree_type = 'category';
-	public $db_fields = array(
-		'parent' => 'parent',
-		'id' => 'term_id',
-	);
-
-	/**
-	 * Starts the list before the elements are added.
-	 *
-	 * @see Walker:start_lvl()
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param string $output Passed by reference. Used to append additional content.
-	 * @param int    $depth  Depth of category. Used for tab indentation.
-	 * @param array  $args   An array of arguments. @see wp_terms_checklist()
-	 */
-	public function start_lvl( &$output, $depth = 0, $args = array() ) {
-		$indent = str_repeat( "\t", $depth );
-		$output .= "$indent<ul class='children'>\n";
-	}
-
-	/**
-	 * Ends the list of after the elements are added.
-	 *
-	 * @see Walker::end_lvl()
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param string $output Passed by reference. Used to append additional content.
-	 * @param int    $depth  Depth of category. Used for tab indentation.
-	 * @param array  $args   An array of arguments. @see wp_terms_checklist()
-	 */
-	public function end_lvl( &$output, $depth = 0, $args = array() ) {
-		$indent = str_repeat( "\t", $depth );
-		$output .= "$indent</ul>\n";
-	}
+class PCP_Admin_Walker_Category_Radio extends Walker_Category_Checklist {
 
 	/**
 	 * Start the element output.
@@ -64,7 +27,7 @@ class PCP_Admin_Walker_Category_Radio extends Walker {
 	 * @param string $output   Passed by reference. Used to append additional content.
 	 * @param object $category The current term object.
 	 * @param int    $depth    Depth of the term in reference to parents. Default 0.
-	 * @param array  $args     An array of arguments. @see wp_terms_checklist()
+	 * @param array  $args     An array of arguments. @see wp_terms_checklist().
 	 * @param int    $id       ID of the current term.
 	 */
 	public function start_el( &$output, $category, $depth = 0, $args = array(), $id = 0 ) {
@@ -86,7 +49,7 @@ class PCP_Admin_Walker_Category_Radio extends Walker {
 		/* RB4T mod: get first term object */
 		$selected_term = ! empty( $args['selected_cats'] ) && ! is_wp_error( $args['selected_cats'] ) ? array_pop( $args['selected_cats'] ) : false;
 
-		// if no term, match the 0 "no term" option
+		// if no term, match the 0 "no term" option.
 		$selected_id = ( $selected_term ) ? $selected_term : 0;
 		/* end */
 
@@ -114,19 +77,4 @@ class PCP_Admin_Walker_Category_Radio extends Walker {
 		}
 	}
 
-	/**
-	 * Ends the element output, if needed.
-	 *
-	 * @see Walker::end_el()
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param string $output   Passed by reference. Used to append additional content.
-	 * @param object $category The current term object.
-	 * @param int    $depth    Depth of the term in reference to parents. Default 0.
-	 * @param array  $args     An array of arguments. @see wp_terms_checklist()
-	 */
-	public function end_el( &$output, $category, $depth = 0, $args = array() ) {
-		$output .= "</li>\n";
-	}
 }
