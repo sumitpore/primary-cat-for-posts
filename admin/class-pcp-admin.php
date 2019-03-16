@@ -22,7 +22,7 @@ class PCP_Admin {
 	}
 
 	/**
-	 * Get all taxonomies - for plugin options checklist
+	 * Get all taxonomies we are interseted in
 	 *
 	 * @access public
 	 * @return array

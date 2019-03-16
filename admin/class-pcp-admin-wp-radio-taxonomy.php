@@ -318,11 +318,11 @@ if ( ! class_exists( 'PCP_Admin_WP_Radio_Taxonomy' ) ) :
 		}
 
 		/**
-		 * Updates a post meta containing information about required taxonomies 
+		 * Updates a post meta containing information about required taxonomies
 		 * not selected by user.
 		 *
 		 * Note: This list is deleted after an error message is shown
-		 * 
+		 *
 		 * @param int $post_id
 		 * @return void
 		 * @since 1.0.0

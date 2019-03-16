@@ -14,7 +14,7 @@ class PCP_Admin_Walker_Category_Radio extends Walker {
 	public $db_fields = array(
 		'parent' => 'parent',
 		'id' => 'term_id',
-	); 
+	);
 
 	/**
 	 * Starts the list before the elements are added.
