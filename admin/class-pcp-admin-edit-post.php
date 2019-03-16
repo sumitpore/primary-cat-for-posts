@@ -51,11 +51,27 @@ class PCP_Admin_Edit_Post {
 			return;
 		}
 
-		printf(
-			'<div class="error below-h2"><p><b>%s %s</b></p></div>',
-			esc_html__( 'Please set following required Categories: ', PRIMARY_CAT_FOR_POSTS_TEXTDOMAIN ),
-			esc_html( implode( ', ', $list_of_unselected_required_taxonomies ) )
+		$valid_taxonomies = array_filter(
+			$list_of_unselected_required_taxonomies,
+			function( $taxonomy ) {
+				return taxonomy_exists( $taxonomy );
+			}
 		);
+
+		$taxonomy_names = array_map(
+			function( $taxonomy ) {
+				return get_taxonomy( $taxonomy )->labels->singular_name;
+			},
+			$valid_taxonomies
+		);
+
+		if ( ! empty( $taxonomy_names ) ) {
+			printf(
+				'<div class="error below-h2"><p><b>%s %s</b></p></div>',
+				esc_html__( 'Please set following required Categories: ', PRIMARY_CAT_FOR_POSTS_TEXTDOMAIN ),
+				esc_html( implode( ', ', $taxonomy_names ) )
+			);
+		}
 
 		// Delete the post meta after message is shown
 		delete_post_meta( $post->ID, 'unselected_required_taxonomies' );

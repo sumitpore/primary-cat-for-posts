@@ -330,14 +330,13 @@ if ( ! class_exists( 'PCP_Admin_WP_Radio_Taxonomy' ) ) :
 		private function update_list_of_unselected_required_taxonomies( $post_id ) {
 
 			$list_of_unselected_required_taxonomies = $old = get_post_meta( $post_id, 'unselected_required_taxonomies', true ); // @codingStandardsIgnoreLine
-			$taxonomy_name = get_taxonomy( $this->taxonomy )->labels->singular_name;
 
 			if ( empty( $list_of_unselected_required_taxonomies ) ) {
 				$list_of_unselected_required_taxonomies = [];
 			}
 
-			if ( ! in_array( $taxonomy_name, $list_of_unselected_required_taxonomies ) ) {
-				$list_of_unselected_required_taxonomies[] = $taxonomy_name;
+			if ( ! in_array( $this->taxonomy, $list_of_unselected_required_taxonomies ) ) {
+				$list_of_unselected_required_taxonomies[] = $this->taxonomy;
 				update_post_meta( $post_id, 'unselected_required_taxonomies', $list_of_unselected_required_taxonomies, $old );
 			}
 		}
