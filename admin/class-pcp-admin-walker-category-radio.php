@@ -1,4 +1,7 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly
+}
 /**
  * Core walker class to output an unordered list of category radio input elements.
  * Mimics Walker_Category_Checklist except for the radio input /wp-admin/includes/class-walker-category-checklist.php from WordPress 4.4.0
