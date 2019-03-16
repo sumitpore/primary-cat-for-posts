@@ -54,7 +54,7 @@ class PCP_Admin_Edit_Post {
 		printf(
 			'<div class="error below-h2"><p><b>%s %s</b></p></div>',
 			esc_html__( 'Please set following required Categories: ', PRIMARY_CAT_FOR_POSTS_TEXTDOMAIN ),
-			esc_html__( implode( ', ', $list_of_unselected_required_taxonomies ) )
+			esc_html( implode( ', ', $list_of_unselected_required_taxonomies ) )
 		);
 
 		// Delete the post meta after message is shown
