@@ -48,12 +48,12 @@
     <div id="<?php esc_attr_e( $taxonomy ); ?>-all" class="tabs-panel">
         <ul id="<?php esc_attr_e( $taxonomy ); ?>checklist" data-wp-lists="list:<?php esc_attr_e( $taxonomy ); ?>" class="categorychecklist form-no-clear">
                 <?php
-                wp_terms_checklist(
-                    $post->ID, array(
-                        'taxonomy' => $taxonomy,
-                        'popular_cats' => $popular_ids,
-                    )
-                );
+                    wp_terms_checklist(
+                        $post->ID, array(
+                            'taxonomy' => $taxonomy,
+                            'popular_cats' => $popular_ids,
+                        )
+                    );
                 ?>
         </ul>
     </div>
